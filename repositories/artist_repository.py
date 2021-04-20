@@ -25,4 +25,14 @@ def select(id):
     return artist
 
 def albums(artist):
-    pass
+    albums = []
+
+    sql = "SELECT * FROM albums WHERE artist_id = %s"
+    values = [artist.id]
+    results = run_sql(sql, values)
+
+    for row in results: 
+        album = Album(row['title'], row['genre'], artist, row['id'])
+        albums.append(album)
+
+    return albums
